@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="productos.css">
+</head>
+<body>
+
+    <!-- MENÚ -->
+    <div id="menu-container"></div>
+
+    <!-- MODAL NUEVO PRODUCTO -->
+    <div id="modal-producto" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;justify-content:center;align-items:center;">
+        <div style="background:white;padding:30px;border-radius:8px;width:360px;">
+            <h2 style="margin-bottom:20px;">Nuevo Producto</h2>
+
+            <label>Nombre</label><br>
+            <input id="prod-nombre" type="text" maxlength="200" style="width:100%;margin-bottom:12px;padding:8px;"><br>
+
+            <label>Precio de compra</label><br>
+            <input id="prod-precio-compra" type="number" step="0.01" min="0" style="width:100%;margin-bottom:12px;padding:8px;"><br>
+
+            <label>Precio de venta</label><br>
+            <input id="prod-precio-venta" type="number" step="0.01" min="0" style="width:100%;margin-bottom:12px;padding:8px;"><br>
+
+            <label>Cantidad</label><br>
+            <input id="prod-cantidad" type="number" min="0" style="width:100%;margin-bottom:20px;padding:8px;"><br>
+
+            <div style="display:flex;gap:10px;justify-content:flex-end;">
+                <button id="btn-cancelar" style="padding:8px 16px;cursor:pointer;">Cancelar</button>
+                <button id="btn-guardar" style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:4px;cursor:pointer;">Guardar</button>
+            </div>
+
+            <p id="prod-msg" style="margin-top:12px;display:none;"></p>
+        </div>
+    </div>
+
+    <!-- BARRA SUPERIOR -->
+    <header class="topbar">
+        <input type="text" id="buscador" placeholder="Buscar producto...">
+        <div class="user">Administrador</div>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main class="contenido">
+        <div class="productos-header">
+            <h1>Productos</h1>
+            <button id="btn-nuevo-top" class="btn-primary">
+                <i class="fas fa-plus"></i> Nuevo Producto
+            </button>
+        </div>
+
+        <table class="tabla-productos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio Compra</th>
+                    <th>Precio Venta</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body">
+                <tr>
+                    <td colspan="5" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script src="productos.js"></script>
+
+</body>
+</html>
