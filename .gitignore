@@ -4,3 +4,4 @@ out/
 .npmrc
 package-lock.json
 *.db
+.vscode/
