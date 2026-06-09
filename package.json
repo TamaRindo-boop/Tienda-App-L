@@ -4,14 +4,37 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder --win"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Punto de venta Tiendita",
   "dependencies": {
-    "better-sqlite3": "^12.10.0",
-    "electron": "^41.7.1"
+    "better-sqlite3": "^12.10.0"
+  },
+  "devDependencies": {
+    "electron": "^41.7.1",
+    "electron-builder": "^26.15.2"
+  },
+  "build": {
+    "appId": "com.tiendita.pos",
+    "productName": "Tiendita",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "uninstallDisplayName": "Tiendita POS"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/.cache",
+      "!*.db"
+    ]
   }
 }

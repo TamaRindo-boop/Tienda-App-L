@@ -66,3 +66,11 @@ ipcMain.handle('obtener-productos', () => {
         return { ok: false, error: err.message };
     }
 });
+ipcMain.handle('actualizar-cantidad', (event, { id, cantidad }) => {
+    try {
+        db.prepare('UPDATE productos SET cantidad = ? WHERE id = ?').run(cantidad, id);
+        return { ok: true };
+    } catch (err) {
+        return { ok: false, error: err.message };
+    }
+});
