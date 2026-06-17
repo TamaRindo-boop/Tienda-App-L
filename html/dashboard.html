@@ -1,0 +1,29 @@
+<body>
+
+    <!-- MENÚ -->
+    <div id="menu-container"></div>
+
+    <!-- BARRA SUPERIOR -->
+    <header class="topbar">
+        <input type="text" placeholder="Buscar ventas, productos, inventario...">
+        <div class="user">Administrador</div>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main class="contenido">
+        <h1>Bienvenido</h1>
+    </main>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="dashboard.css">
+
+    <script>
+        fetch('menu.html')
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById('menu-container').innerHTML = html;
+            });
+    </script>
+
+</body>
