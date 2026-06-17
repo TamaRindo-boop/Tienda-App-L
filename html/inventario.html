@@ -5,16 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/inventario.css">
 </head>
 <body>
 
-    <!-- MENÚ (mismo que en productos.html) -->
-    <div id="menu-container"></div>
+    <div style="display: flex; min-height: 100vh; width: 100%;">
 
-    <!-- MODAL NUEVO MOVIMIENTO -->
+        <div id="menu-container"></div>
+
+        <div style="flex: 1; display: flex; flex-direction: column;">
+            
+            <header class="topbar">
+                <input type="text" id="buscarMovimiento" placeholder="Buscar movimientos...">
+                <div class="user">Administrador</div>
+            </header>
+
+            <main class="contenido">
+                <div class="inventario-header">
+                    <div>
+                        <h1>📦 Inventario</h1>
+                        <p>Controla entradas, salidas y ajustes de productos</p>
+                    </div>
+                    <button class="btn-nuevo" onclick="abrirModal()">
+                        <i class="fas fa-plus"></i> Nuevo Movimiento
+                    </button>
+                </div>
+
+                <div class="filtros">
+                    <button onclick="filtrar('Todos', this)" class="activo">📋 Todos</button>
+                    <button onclick="filtrar('Entrada', this)">📥 Entradas</button>
+                    <button onclick="filtrar('Salida', this)">📤 Salidas</button>
+                    <button onclick="filtrar('Ajuste', this)">⚙️ Ajustes</button>
+                </div>
+
+                <div class="tabla-container">
+                    <table class="tabla-productos">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Producto</th>
+                                <th>Referencia</th>
+                                <th>Cantidad</th>
+                                <th>Usuario</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaMovimientos">
+                            <tr>
+                                <td colspan="7" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+        </div>
+
     <div id="modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
         <div style="background:white;padding:25px;border-radius:16px;width:400px;max-width:90%;">
             <h2 id="modalTitulo" style="margin-bottom:15px;">Nuevo Movimiento</h2>
@@ -41,53 +90,6 @@
             </div>
         </div>
     </div>
-
-    <!-- BARRA SUPERIOR -->
-    <header class="topbar">
-        <input type="text" id="buscarMovimiento" placeholder="Buscar movimientos...">
-        <div class="user">Administrador</div>
-    </header>
-
-    <!-- CONTENIDO -->
-    <main class="contenido">
-        <div class="inventario-header">
-            <div>
-                <h1>📦 Inventario</h1>
-                <p>Controla entradas, salidas y ajustes de productos</p>
-            </div>
-            <button class="btn-nuevo" onclick="abrirModal()">
-                <i class="fas fa-plus"></i> Nuevo Movimiento
-            </button>
-        </div>
-
-        <div class="filtros">
-            <button onclick="filtrar('Todos', this)" class="activo">📋 Todos</button>
-            <button onclick="filtrar('Entrada', this)">📥 Entradas</button>
-            <button onclick="filtrar('Salida', this)">📤 Salidas</button>
-            <button onclick="filtrar('Ajuste', this)">⚙️ Ajustes</button>
-        </div>
-
-        <div class="tabla-container">
-            <table class="tabla-productos">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Tipo</th>
-                        <th>Producto</th>
-                        <th>Referencia</th>
-                        <th>Cantidad</th>
-                        <th>Usuario</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaMovimientos">
-                    <tr>
-                        <td colspan="7" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
 
     <script src="../javascript/menu.js"></script>
     <script src="../javascript/inventario.js"></script> 

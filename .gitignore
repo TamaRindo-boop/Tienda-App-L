@@ -7,3 +7,5 @@ package-lock.json
 .vscode/
 .continue/agents
 .continue/agent-logs
+.sh
+.txt

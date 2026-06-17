@@ -15,3 +15,16 @@
     background:#f8fafc;
     min-height:calc(100vh - 70px);
 }
+/* Esto hace que el menú y el contenido vivan lado a lado */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* El contenido ocupa todo el resto del espacio */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f4f7f6; /* O el color que uses */
+}

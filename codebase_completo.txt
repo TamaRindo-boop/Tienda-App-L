@@ -6,7 +6,7 @@ Ruta del archivo: ./javascript/menu.js
 
 async function cargarMenu() {
     // Carga el contenido del menú desde un archivo externo
-    const res = await fetch('menu.html');
+    const res = await fetch('../menu.html');
     if (res.ok) {
         document.getElementById('menu-container').innerHTML = await res.text();
         
@@ -849,7 +849,7 @@ Ruta del archivo: ./html/index.html
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 
@@ -889,9 +889,9 @@ Ruta del archivo: ./html/inventario.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="html/menu.css">
-    <link rel="stylesheet" href="html/dashboard.css">
-    <link rel="stylesheet" href="html/inventario.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/inventario.css">
 </head>
 <body>
 
@@ -973,10 +973,8 @@ Ruta del archivo: ./html/inventario.html
         </div>
     </main>
 
-    <!-- Carga el contenido del menú -->
-    <script src="javascript/menu.js"></script>
-    <!-- Carga la lógica para cargar datos -->
-    <script src="javascript/inventario.js"></script>
+    <script src="../javascript/menu.js"></script>
+    <script src="../javascript/inventario.js"></script> 
 </body>
 </html>
 
@@ -1001,8 +999,8 @@ Ruta del archivo: ./html/dashboard.html
     </main>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/menu.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 
     <script>
         fetch('menu.html')
@@ -1025,9 +1023,9 @@ Ruta del archivo: ./html/productos.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="html/menu.css">
-    <link rel="stylesheet" href="html/dashboard.css">
-    <link rel="stylesheet" href="html/productos.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/productos.css">
 </head>
 <body>
 
@@ -1097,7 +1095,7 @@ Ruta del archivo: ./html/productos.html
         </table>
     </main>
 
-    <script src="javascript/productos.js"></script>
+    <script src="../javascript/productos.js"></script>
 
 </body>
 </html>
@@ -1113,9 +1111,9 @@ Ruta del archivo: ./html/ventas.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/menu.css">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/ventas.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/ventas.css">
 
 </head>
 <body>
@@ -1235,7 +1233,7 @@ Ruta del archivo: ./html/ventas.html
         </div>
     </main>
 
-    <script src="javascript/ventas.js"></script>
+    <script src="../javascript/ventas.js"></script>
     <script>
         // Cargar el menú dinámicamente
         fetch('menu.html')
