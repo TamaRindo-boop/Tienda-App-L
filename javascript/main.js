@@ -16,7 +16,7 @@ function crearVentana() {
         }
     });
 
-    mainWindow.loadFile('index.html');
+    mainWindow.loadFile('html/index.html');
 }
 
 app.whenReady().then(() => {

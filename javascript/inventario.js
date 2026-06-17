@@ -244,3 +244,5 @@ window.onclick = function(event) {
     if (event.target === modalVenta) cerrarModalVenta();
     if (event.target === modalDetalles) cerrarModalDetalles();
 }
+
+
