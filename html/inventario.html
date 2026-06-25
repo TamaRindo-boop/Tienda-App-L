@@ -62,14 +62,17 @@
                 </div>
             </main>
         </div>
-        </div>
+    </div>
 
+    <!-- MODAL CORREGIDO -->
     <div id="modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
         <div style="background:white;padding:25px;border-radius:16px;width:400px;max-width:90%;">
             <h2 id="modalTitulo" style="margin-bottom:15px;">Nuevo Movimiento</h2>
 
             <label>📦 Producto</label><br>
-            <input type="text" id="producto" placeholder="Ej: Sabritas, Galletas..." style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
+            <select id="producto" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;">
+                <option value="">Seleccionar producto...</option>
+            </select><br>
 
             <label>🔄 Tipo de Movimiento</label><br>
             <select id="tipo" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;">
@@ -92,6 +95,6 @@
     </div>
 
     <script src="../javascript/menu.js"></script>
-    <script src="../javascript/inventario.js"></script> 
+    <script src="../javascript/inventario.js"></script>
 </body>
 </html>

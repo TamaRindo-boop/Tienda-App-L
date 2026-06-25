@@ -1,0 +1,200 @@
+/* compras.css - Mismo estilo que inventario */
+
+.compras-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.compras-header h1 {
+    color: #111827;
+    font-size: 24px;
+}
+
+.compras-header p {
+    color: #6b7280;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.btn-nuevo {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-nuevo:hover {
+    background: #1d4ed8;
+}
+
+/* Filtros - igual a inventario */
+.filtros {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filtros button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #6b7280;
+    font-weight: 600;
+    padding: 8px 0;
+    transition: color 0.2s;
+    font-size: 14px;
+}
+
+.filtros button:hover {
+    color: #2563eb;
+}
+
+.filtros .activo {
+    color: #2563eb;
+    border-bottom: 2px solid #2563eb;
+}
+
+/* Tabla - igual a inventario */
+.tabla-container {
+    background: white;
+    border-radius: 12px;
+    overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.tabla-productos thead {
+    background: #f8fafc;
+}
+
+.tabla-productos thead th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabla-productos tbody td {
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #111827;
+    font-size: 14px;
+}
+
+.tabla-productos tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* Badges - igual a inventario */
+.badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.badge.pendiente {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge.completada {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge.cancelada {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Botones de acción - igual a inventario */
+.btn-accion {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.btn-ver {
+    color: #2563eb;
+}
+
+.btn-ver:hover {
+    background: #eff6ff;
+}
+
+.btn-completar {
+    color: #16a34a;
+}
+
+.btn-completar:hover {
+    background: #dcfce7;
+}
+
+.btn-cancelar-accion {
+    color: #dc2626;
+}
+
+.btn-cancelar-accion:hover {
+    background: #fee2e2;
+}
+
+.btn-eliminar {
+    color: #ef4444;
+}
+
+.btn-eliminar:hover {
+    background: #fee2e2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .compras-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .filtros {
+        gap: 10px;
+    }
+    
+    .filtros button {
+        font-size: 12px;
+        padding: 6px 0;
+    }
+    
+    .tabla-productos {
+        font-size: 13px;
+        min-width: 700px;
+    }
+    
+    thead th,
+    tbody td {
+        padding: 10px 12px;
+    }
+}

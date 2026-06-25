@@ -49,9 +49,10 @@ nav a:hover{
     background:#1e293b;
 }
 
-nav a.active{
-    background:#2563eb;
-    color:white;
+/* menu.css - Usando 'active' */
+.sidebar nav a.active {  /* ← Cambiado de 'activo' a 'active' */
+    background: #2563eb;
+    color: white;
 }
 
 nav i{

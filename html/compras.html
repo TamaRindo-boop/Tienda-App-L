@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/compas.css">
+</head>
+<body>
+
+    <div style="display: flex; min-height: 100vh; width: 100%;">
+
+        <div id="menu-container"></div>
+
+        <div style="flex: 1; display: flex; flex-direction: column;">
+            
+            <header class="topbar">
+                <input type="text" id="buscarCompra" placeholder="Buscar compras...">
+                <div class="user">Administrador</div>
+            </header>
+
+            <main class="contenido">
+                <!-- Header igual a inventario -->
+                <div class="compras-header">
+                    <div>
+                        <h1>🛒 Compras</h1>
+                        <p>Gestiona las compras a proveedores</p>
+                    </div>
+                    <button class="btn-nuevo" onclick="abrirModalCompra()">
+                        <i class="fas fa-plus"></i> Nueva Compra
+                    </button>
+                </div>
+
+                <!-- Filtros igual a inventario -->
+                <div class="filtros">
+                    <button onclick="filtrarCompras('Todos', this)" class="activo">📋 Todos</button>
+                    <button onclick="filtrarCompras('Pendiente', this)">⏳ Pendientes</button>
+                    <button onclick="filtrarCompras('Completada', this)">✅ Completadas</button>
+                    <button onclick="filtrarCompras('Cancelada', this)">❌ Canceladas</button>
+                </div>
+
+                <!-- Tabla igual a inventario -->
+                <div class="tabla-container">
+                    <table class="tabla-productos">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Proveedor</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unit.</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCompras">
+                            <tr>
+                                <td colspan="9" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal Nueva Compra (igual al de inventario) -->
+    <div id="modal-compra" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
+        <div style="background:white;padding:25px;border-radius:16px;width:400px;max-width:90%;">
+            <h2 id="modalTitulo" style="margin-bottom:15px;">Nueva Compra</h2>
+
+            <label>🏢 Proveedor</label><br>
+            <select id="proveedor" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;">
+                <option value="">Seleccionar proveedor...</option>
+                <option value="Proveedor A">Proveedor A</option>
+                <option value="Proveedor B">Proveedor B</option>
+                <option value="Proveedor C">Proveedor C</option>
+            </select><br>
+
+            <label>📦 Producto</label><br>
+            <select id="producto-compra" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;">
+                <option value="">Seleccionar producto...</option>
+            </select><br>
+
+            <label>🔢 Cantidad</label><br>
+            <input type="number" id="cantidad-compra" placeholder="Ej: 10, 25, 50..." min="1" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
+
+            <label>💰 Precio Unitario</label><br>
+            <input type="number" id="precio-unitario-compra" placeholder="Ej: 15.50" min="0" step="0.01" style="width:100%;margin-bottom:20px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
+
+            <div style="display:flex;gap:10px;justify-content:flex-end;">
+                <button onclick="cerrarModalCompra()" style="padding:8px 16px;cursor:pointer;border:1px solid #ccc;background:white;border-radius:6px;">Cancelar</button>
+                <button onclick="guardarCompra()" style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalles (igual al de inventario) -->
+    <div id="modal-detalles-compra" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
+        <div style="background:white;padding:25px;border-radius:16px;width:400px;max-width:90%;">
+            <h2 style="margin-bottom:15px;">📋 Detalles de Compra</h2>
+            <div id="detalles-contenido-compra"></div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;">
+                <button onclick="cerrarModalDetallesCompra()" style="padding:8px 16px;cursor:pointer;border:1px solid #ccc;background:white;border-radius:6px;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../javascript/menu.js"></script>
+    <script src="../javascript/compras.js"></script>
+</body>
+</html>

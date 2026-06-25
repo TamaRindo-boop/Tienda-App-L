@@ -1,26 +1,56 @@
+// menu.js
 async function cargarMenu() {
-    // Carga el contenido del menú desde un archivo externo
-    const res = await fetch('../menu.html');
-    if (res.ok) {
-        document.getElementById('menu-container').innerHTML = await res.text();
-        
-        // Activa el enlace "Productos" en el menú lateral
-        const links = document.querySelectorAll('.sidebar nav a');
-        links.forEach(a => a.classList.remove('active'));
-        const linkProductos = [...links].find(a => a.href.includes('productos.html'));
-        if (linkProductos) linkProductos.classList.add('active');
+    const menuContainer = document.getElementById('menu-container');
+    if (!menuContainer) {
+        console.error("❌ No se encontró el contenedor del menú");
+        return;
+    }
 
-        // Agrega un evento click al botón para abrir el modal de nuevo producto
-        const btnMenu = document.getElementById('btn-nuevo-producto');
-        if (btnMenu) btnMenu.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            abrirModal();
-        });
-    } else {
-        console.error("Error al cargar el menú:", res.statusText);
+    try {
+        const res = await fetch('../html/menu.html');
+        
+        if (res.ok) {
+            const html = await res.text();
+            menuContainer.innerHTML = html;
+            
+            // Activar el enlace según la página actual
+            const links = document.querySelectorAll('.sidebar nav a');
+            links.forEach(a => a.classList.remove('activo')); // ← Cambiar 'active' por 'activo'
+            
+            const path = window.location.pathname;
+            const paginaActual = path.split('/').pop() || 'dashboard.html';
+            
+            const linkActivo = [...links].find(a => {
+                const href = a.getAttribute('href');
+                return href && href.includes(paginaActual);
+            });
+            
+            if (linkActivo) {
+                linkActivo.classList.add('activo'); // ← Cambiar 'active' por 'activo'
+            }
+
+            // Evento para el botón "+"
+            const btnMenu = document.getElementById('btn-nuevo-producto');
+            if (btnMenu) {
+                btnMenu.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (typeof window.abrirModal === 'function') {
+                        window.abrirModal();
+                    } else {
+                        window.location.href = 'productos.html?action=nuevo';
+                    }
+                });
+            }
+            
+            console.log("✅ Menú cargado correctamente");
+            
+        } else {
+            console.error("❌ Error al cargar el menú:", res.status, res.statusText);
+        }
+    } catch (error) {
+        console.error("❌ Error en cargarMenu:", error);
     }
 }
 
-// Llama a la función cuando se carga la página
 document.addEventListener('DOMContentLoaded', cargarMenu);

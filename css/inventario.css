@@ -1,3 +1,4 @@
+/* Tus estilos existentes */
 .inventario-card {
     background: white;
     border-radius: 16px;
@@ -39,6 +40,7 @@
     display: flex;
     gap: 20px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .filtros button {
@@ -49,6 +51,7 @@
     font-weight: 600;
     padding: 8px 0;
     transition: color 0.2s;
+    font-size: 14px;
 }
 
 .filtros button:hover {
@@ -64,6 +67,7 @@
     background: white;
     border-radius: 12px;
     overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -81,48 +85,75 @@ thead th {
     text-align: left;
     font-weight: 600;
     color: #374151;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 tbody td {
     padding: 16px;
     border-bottom: 1px solid #e5e7eb;
     color: #111827;
+    font-size: 14px;
 }
 
-.tipo {
-    padding: 6px 12px;
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* Badges para tipos */
+.badge {
+    padding: 4px 12px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
+    white-space: nowrap;
 }
 
-.entrada {
+.badge.entrada {
     background: #dcfce7;
     color: #166534;
 }
 
-.salida {
+.badge.salida {
     background: #fee2e2;
     color: #991b1b;
 }
 
-.ajuste {
+.badge.ajuste {
     background: #dbeafe;
     color: #1d4ed8;
 }
 
-.cantidad-entrada {
-    color: #16a34a;
-    font-weight: bold;
+/* Botones de acción */
+.btn-accion {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-size: 14px;
 }
 
-.cantidad-salida {
-    color: #dc2626;
-    font-weight: bold;
+.btn-ver {
+    color: #2563eb;
 }
 
-/* MODAL CORREGIDO */
+.btn-ver:hover {
+    background: #eff6ff;
+}
+
+.btn-eliminar {
+    color: #ef4444;
+}
+
+.btn-eliminar:hover {
+    background: #fee2e2;
+}
+
+/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -184,6 +215,8 @@ tbody td {
     border-radius: 8px;
     font-size: 14px;
     transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .modal-content input:focus,
@@ -228,37 +261,29 @@ tbody td {
     background: #e5e7eb;
 }
 
-.acciones-tabla {
-    display: flex;
-    gap: 8px;
-}
-
-.btn-editar,
-.btn-eliminar {
-    border: none;
-    padding: 7px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: all 0.2s;
-}
-
-.btn-editar {
-    background: #dbeafe;
-    color: #1d4ed8;
-}
-
-.btn-editar:hover {
-    background: #bfdbfe;
-    transform: scale(1.05);
-}
-
-.btn-eliminar {
-    background: #fee2e2;
-    color: #dc2626;
-}
-
-.btn-eliminar:hover {
-    background: #fecaca;
-    transform: scale(1.05);
+/* Responsive */
+@media (max-width: 768px) {
+    .inventario-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .filtros {
+        gap: 10px;
+    }
+    
+    .filtros button {
+        font-size: 12px;
+        padding: 6px 0;
+    }
+    
+    table {
+        font-size: 13px;
+    }
+    
+    thead th,
+    tbody td {
+        padding: 10px 12px;
+    }
 }
