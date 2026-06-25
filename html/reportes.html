@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/reportes.css">
+</head>
+<body>
+
+    <div style="display: flex; min-height: 100vh; width: 100%;">
+
+        <div id="menu-container"></div>
+
+        <div style="flex: 1; display: flex; flex-direction: column;">
+            
+            <header class="topbar">
+                <input type="text" id="buscarReporte" placeholder="Buscar reportes...">
+                <div class="user">Administrador</div>
+            </header>
+
+            <main class="contenido">
+                <!-- Header igual a inventario -->
+                <div class="reportes-header">
+                    <div>
+                        <h1>📊 Reportes</h1>
+                        <p>Visualiza y genera reportes del sistema</p>
+                    </div>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn-nuevo" onclick="generarReportePDF()" style="background:#10b981;">
+                            <i class="fas fa-file-pdf"></i> Exportar PDF
+                        </button>
+                        <button class="btn-nuevo" onclick="generarReporteExcel()" style="background:#2563eb;">
+                            <i class="fas fa-file-excel"></i> Exportar Excel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjetas de resumen -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div>
+                            <p class="stat-label">Total Ventas</p>
+                            <p class="stat-value" id="total-ventas-reporte">$0.00</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div>
+                            <p class="stat-label">Total Compras</p>
+                            <p class="stat-value" id="total-compras-reporte">$0.00</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div>
+                            <p class="stat-label">Productos</p>
+                            <p class="stat-value" id="total-productos-reporte">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div>
+                            <p class="stat-label">Ganancia Estimada</p>
+                            <p class="stat-value" id="ganancia-reporte">$0.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros de fecha -->
+                <div class="filtros-fecha">
+                    <div class="fecha-group">
+                        <label>Desde:</label>
+                        <input type="date" id="fecha-inicio">
+                    </div>
+                    <div class="fecha-group">
+                        <label>Hasta:</label>
+                        <input type="date" id="fecha-fin">
+                    </div>
+                    <button class="btn-filtrar" onclick="aplicarFiltroFecha()">
+                        <i class="fas fa-filter"></i> Filtrar
+                    </button>
+                    <button class="btn-limpiar" onclick="limpiarFiltroFecha()">
+                        <i class="fas fa-undo"></i> Limpiar
+                    </button>
+                </div>
+
+                <!-- Pestañas de reportes -->
+                <div class="tabs-reportes">
+                    <button onclick="cambiarTab('ventas', this)" class="tab-btn active">
+                        <i class="fas fa-shopping-cart"></i> Ventas
+                    </button>
+                    <button onclick="cambiarTab('compras', this)" class="tab-btn">
+                        <i class="fas fa-truck"></i> Compras
+                    </button>
+                    <button onclick="cambiarTab('inventario', this)" class="tab-btn">
+                        <i class="fas fa-warehouse"></i> Inventario
+                    </button>
+                    <button onclick="cambiarTab('productos', this)" class="tab-btn">
+                        <i class="fas fa-box"></i> Productos
+                    </button>
+                </div>
+
+                <!-- Tabla de reportes -->
+                <div class="tabla-container">
+                    <div id="contenido-reporte">
+                        <!-- Contenido generado por JavaScript -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../javascript/menu.js"></script>
+    <script src="../javascript/reportes.js"></script>
+</body>
+</html>
