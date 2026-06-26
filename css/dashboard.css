@@ -1,30 +1,95 @@
-.topbar{
-    margin-left:220px;
-    height:70px;
-    background:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 30px;
-    border-bottom:1px solid #e5e7eb;
-}
+/* dashboard.css - Layout principal corregido */
 
-.contenido{
-    margin-left:220px;
-    padding:30px;
-    background:#f8fafc;
-    min-height:calc(100vh - 70px);
-}
-/* Esto hace que el menú y el contenido vivan lado a lado */
+/* Contenedor principal para sidebar + contenido */
 .app-layout {
     display: flex;
     min-height: 100vh;
+    width: 100%;
 }
 
-
-/* El contenido ocupa todo el resto del espacio */
+/* El contenido principal ocupa el resto del espacio */
 .main-content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: #f4f7f6; /* O el color que uses */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 220px;
+    min-height: 100vh;
+}
+
+/* Topbar - barra superior */
+.topbar {
+    height: 64px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 1px solid #e5e7eb;
+    flex-shrink: 0;
+}
+
+.topbar input[type="text"] {
+    width: 300px;
+    padding: 8px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #f8fafc;
+    transition: all 0.2s;
+}
+
+.topbar input[type="text"]:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    background: white;
+}
+
+.topbar .user {
+    font-weight: 600;
+    color: #111827;
+    font-size: 14px;
+}
+
+/* Contenido principal */
+.contenido {
+    flex: 1;
+    padding: 24px 30px;
+    background: #f8fafc;
+    overflow-y: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .sidebar {
+        width: 60px;
+    }
+    
+    .sidebar .logo h3,
+    .sidebar .logo small,
+    .sidebar nav a span:not(.btn-menu-nuevo) {
+        display: none;
+    }
+    
+    .sidebar nav a {
+        justify-content: center;
+        padding: 12px;
+    }
+    
+    .sidebar .logo {
+        justify-content: center;
+        padding: 12px;
+    }
+    
+    .topbar input[type="text"] {
+        width: 180px;
+    }
+    
+    .contenido {
+        padding: 16px;
+    }
 }

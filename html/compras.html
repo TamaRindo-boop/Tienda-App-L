@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compras</title>
+    <title>Compras - Tiendita</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -11,19 +11,16 @@
 </head>
 <body>
 
-    <div style="display: flex; min-height: 100vh; width: 100%;">
-
+    <div class="app-layout">
         <div id="menu-container"></div>
 
-        <div style="flex: 1; display: flex; flex-direction: column;">
-            
+        <div class="main-content">
             <header class="topbar">
                 <input type="text" id="buscarCompra" placeholder="Buscar compras...">
                 <div class="user">Administrador</div>
             </header>
 
             <main class="contenido">
-                <!-- Header igual a inventario -->
                 <div class="compras-header">
                     <div>
                         <h1>🛒 Compras</h1>
@@ -34,7 +31,6 @@
                     </button>
                 </div>
 
-                <!-- Filtros igual a inventario -->
                 <div class="filtros">
                     <button onclick="filtrarCompras('Todos', this)" class="activo">📋 Todos</button>
                     <button onclick="filtrarCompras('Pendiente', this)">⏳ Pendientes</button>
@@ -42,14 +38,12 @@
                     <button onclick="filtrarCompras('Cancelada', this)">❌ Canceladas</button>
                 </div>
 
-                <!-- Tabla igual a inventario -->
                 <div class="tabla-container">
                     <table class="tabla-productos">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Fecha</th>
-                                <th>Proveedor</th>
                                 <th>Producto</th>
                                 <th>Cantidad</th>
                                 <th>Precio Unit.</th>
@@ -60,7 +54,7 @@
                         </thead>
                         <tbody id="tablaCompras">
                             <tr>
-                                <td colspan="9" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
+                                <td colspan="8" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -69,18 +63,10 @@
         </div>
     </div>
 
-    <!-- Modal Nueva Compra (igual al de inventario) -->
+    <!-- Modal Nueva Compra -->
     <div id="modal-compra" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
         <div style="background:white;padding:25px;border-radius:16px;width:400px;max-width:90%;">
-            <h2 id="modalTitulo" style="margin-bottom:15px;">Nueva Compra</h2>
-
-            <label>🏢 Proveedor</label><br>
-            <select id="proveedor" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;">
-                <option value="">Seleccionar proveedor...</option>
-                <option value="Proveedor A">Proveedor A</option>
-                <option value="Proveedor B">Proveedor B</option>
-                <option value="Proveedor C">Proveedor C</option>
-            </select><br>
+            <h2 style="margin-bottom:15px;">Nueva Compra</h2>
 
             <label>📦 Producto</label><br>
             <select id="producto-compra" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;">
@@ -90,8 +76,10 @@
             <label>🔢 Cantidad</label><br>
             <input type="number" id="cantidad-compra" placeholder="Ej: 10, 25, 50..." min="1" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
 
-            <label>💰 Precio Unitario</label><br>
-            <input type="number" id="precio-unitario-compra" placeholder="Ej: 15.50" min="0" step="0.01" style="width:100%;margin-bottom:20px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
+            <label>💰 Precio de Compra (automático)</label><br>
+            <input type="text" id="precio-compra-display" readonly
+                style="width:100%;margin-bottom:20px;padding:8px;border:1px solid #ddd;border-radius:6px;background:#f5f5f5;">
+            <br>
 
             <div style="display:flex;gap:10px;justify-content:flex-end;">
                 <button onclick="cerrarModalCompra()" style="padding:8px 16px;cursor:pointer;border:1px solid #ccc;background:white;border-radius:6px;">Cancelar</button>
@@ -100,7 +88,7 @@
         </div>
     </div>
 
-    <!-- Modal Detalles (igual al de inventario) -->
+    <!-- Modal Detalles -->
     <div id="modal-detalles-compra" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
         <div style="background:white;padding:25px;border-radius:16px;width:400px;max-width:90%;">
             <h2 style="margin-bottom:15px;">📋 Detalles de Compra</h2>

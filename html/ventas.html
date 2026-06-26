@@ -3,149 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas</title>
+    <title>Ventas - Tiendita</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/ventas.css">
-
 </head>
 <body>
-    <!--Menu-->
-    <div id="menu-container"></div>
-     <!-- MODAL NUEVA VENTA -->
-    <div id="modal-venta" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
-        <div style="background:white;padding:25px;border-radius:16px;width:500px;max-width:90%;max-height:85vh;overflow-y:auto;">
-            <h2 style="margin-bottom:15px;">🛒 Nueva Venta</h2>
 
-            <label>👤 Cliente</label><br>
-            <input type="text" id="cliente" placeholder="Nombre del cliente" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
+    <div class="app-layout">
+        <div id="menu-container"></div>
 
-            <label>📦 Producto</label><br>
-            <select id="producto-select" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;">
-                <option value="">Seleccionar producto...</option>
-            </select><br>
+        <div class="main-content">
 
-            <label>🔢 Cantidad</label><br>
-            <input type="number" id="cantidad-venta" min="1" value="1" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
+            <!-- MODAL NUEVA VENTA -->
+            <div id="modal-venta" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
+                <div style="background:white;padding:25px;border-radius:16px;width:460px;max-width:90%;max-height:85vh;overflow-y:auto;">
+                    <h2 style="margin-bottom:18px;">🛒 Nueva Venta</h2>
 
-            <label>💰 Precio Unitario</label><br>
-            <input type="number" id="precio-unitario" step="0.01" readonly style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;background:#f5f5f5;"><br>
+                    <label>📦 Producto</label><br>
+                    <select id="producto-select" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;">
+                        <option value="">Seleccionar producto...</option>
+                    </select><br>
 
-            <label>💵 Subtotal</label><br>
-            <input type="text" id="subtotal" readonly style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;background:#f5f5f5;"><br>
+                    <label>🔢 Cantidad</label><br>
+                    <input type="number" id="cantidad-venta" min="1" value="1" style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
 
-            <label>🏷️ Método de Pago</label><br>
-            <select id="metodo-pago" style="width:100%;margin-bottom:20px;padding:8px;border:1px solid #ddd;border-radius:6px;">
-                <option value="Efectivo">💵 Efectivo</option>
-                <option value="Tarjeta">💳 Tarjeta</option>
-                <option value="Transferencia">🏦 Transferencia</option>
-            </select><br>
+                    <label>💰 Precio Unitario</label><br>
+                    <input type="text" id="precio-unitario" readonly style="width:100%;margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:6px;background:#f5f5f5;"><br>
 
-            <div style="display:flex;gap:10px;justify-content:flex-end;">
-                <button onclick="cerrarModalVenta()" style="padding:8px 16px;cursor:pointer;border:1px solid #ccc;background:white;border-radius:6px;">Cancelar</button>
-                <button onclick="guardarVenta()" style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;">✅ Registrar Venta</button>
+                    <label>💵 Subtotal</label><br>
+                    <input type="text" id="subtotal" readonly style="width:100%;margin-bottom:20px;padding:8px;border:1px solid #ddd;border-radius:6px;background:#f5f5f5;"><br>
+
+                    <div style="display:flex;gap:10px;justify-content:flex-end;">
+                        <button onclick="cerrarModalVenta()" style="padding:8px 16px;cursor:pointer;border:1px solid #ccc;background:white;border-radius:6px;">Cancelar</button>
+                        <button onclick="guardarVenta()" style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;">✅ Registrar Venta</button>
+                    </div>
+                </div>
             </div>
+
+            <!-- MODAL DETALLES VENTA -->
+            <div id="modal-detalles" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
+                <div style="background:white;padding:25px;border-radius:16px;width:420px;max-width:90%;">
+                    <h2 style="margin-bottom:15px;">📄 Detalles de Venta</h2>
+                    <div id="detalles-contenido"></div>
+                    <div style="display:flex;justify-content:flex-end;margin-top:20px;">
+                        <button onclick="cerrarModalDetalles()" style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+
+            <header class="topbar">
+                <input type="text" id="buscador-ventas" placeholder="Buscar por producto...">
+                <div class="user">Administrador</div>
+            </header>
+
+            <main class="contenido">
+                <div class="ventas-header">
+                    <div>
+                        <h1>🛍️ Ventas</h1>
+                        <p>Registra y gestiona todas las ventas realizadas</p>
+                    </div>
+                    <button id="btn-nueva-venta" class="btn-primary">
+                        <i class="fas fa-plus"></i> Nueva Venta
+                    </button>
+                </div>
+
+                <div class="resumen-ventas">
+                    <div class="resumen-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div><h3>Total Ventas</h3><p id="total-ventas">$0</p></div>
+                    </div>
+                    <div class="resumen-card">
+                        <i class="fas fa-receipt"></i>
+                        <div><h3>N° Transacciones</h3><p id="total-transacciones">0</p></div>
+                    </div>
+                    <div class="resumen-card">
+                        <i class="fas fa-calendar-day"></i>
+                        <div><h3>Ventas Hoy</h3><p id="ventas-hoy">$0</p></div>
+                    </div>
+                </div>
+
+                <div class="tabla-container">
+                    <table class="tabla-ventas">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unit.</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-ventas">
+                            <tr>
+                                <td colspan="7" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
         </div>
     </div>
 
-    <!-- MODAL DETALLES VENTA -->
-    <div id="modal-detalles" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
-        <div style="background:white;padding:25px;border-radius:16px;width:450px;max-width:90%;">
-            <h2>📄 Detalles de Venta</h2>
-            <div id="detalles-contenido"></div>
-            <div style="display:flex;justify-content:flex-end;margin-top:20px;">
-                <button onclick="cerrarModalDetalles()" style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- BARRA SUPERIOR -->
-    <header class="topbar">
-        <input type="text" id="buscador-ventas" placeholder="Buscar ventas por cliente o producto...">
-        <div class="user">Administrador</div>
-    </header>
-
-    <!-- CONTENIDO -->
-    <main class="contenido">
-        <div class="ventas-header">
-            <div>
-                <h1>🛍️ Ventas</h1>
-                <p>Registra y gestiona todas las ventas realizadas</p>
-            </div>
-            <button id="btn-nueva-venta" class="btn-primary">
-                <i class="fas fa-plus"></i> Nueva Venta
-            </button>
-        </div>
-
-        <!-- Resumen de ventas -->
-        <div class="resumen-ventas">
-            <div class="resumen-card">
-                <i class="fas fa-chart-line"></i>
-                <div>
-                    <h3>Total Ventas</h3>
-                    <p id="total-ventas">$0</p>
-                </div>
-            </div>
-            <div class="resumen-card">
-                <i class="fas fa-receipt"></i>
-                <div>
-                    <h3>N° Transacciones</h3>
-                    <p id="total-transacciones">0</p>
-                </div>
-            </div>
-            <div class="resumen-card">
-                <i class="fas fa-calendar-day"></i>
-                <div>
-                    <h3>Ventas Hoy</h3>
-                    <p id="ventas-hoy">$0</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="tabla-container">
-            <table class="tabla-ventas">
-                <thead>
-                    <tr>
-                        <th>ID Venta</th>
-                        <th>Fecha</th>
-                        <th>Cliente</th>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio Unit.</th>
-                        <th>Total</th>
-                        <th>Método Pago</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tabla-ventas">
-                    <tr>
-                        <td colspan="9" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
-
+    <script src="../javascript/menu.js"></script>
     <script src="../javascript/ventas.js"></script>
-    <script>
-        // Cargar el menú dinámicamente
-        fetch('menu.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-container').innerHTML = data;
-                const links = document.querySelectorAll('#menu-container a');
-                links.forEach(link => {
-                    if (link.getAttribute('href') === 'ventas.html') {
-                        link.classList.add('active');
-                    }
-                });
-            })
-            .catch(error => console.error('Error cargando el menú:', error));
-
-        // Conectar botón nueva venta
-        document.getElementById('btn-nueva-venta').addEventListener('click', abrirModalVenta);
-    </script>
-
 </body>
 </html>

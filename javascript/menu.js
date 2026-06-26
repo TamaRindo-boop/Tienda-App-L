@@ -15,28 +15,40 @@ async function cargarMenu() {
             
             // Activar el enlace según la página actual
             const links = document.querySelectorAll('.sidebar nav a');
-            links.forEach(a => a.classList.remove('activo')); // ← Cambiar 'active' por 'activo'
             
+            // Obtener la página actual
             const path = window.location.pathname;
             const paginaActual = path.split('/').pop() || 'dashboard.html';
             
-            const linkActivo = [...links].find(a => {
+            // Buscar y activar el link correspondiente
+            let linkEncontrado = false;
+            links.forEach(a => {
                 const href = a.getAttribute('href');
-                return href && href.includes(paginaActual);
+                if (href && href.includes(paginaActual)) {
+                    a.classList.add('active');
+                    linkEncontrado = true;
+                } else {
+                    a.classList.remove('active');
+                }
             });
             
-            if (linkActivo) {
-                linkActivo.classList.add('activo'); // ← Cambiar 'active' por 'activo'
+            // Si no se encontró, activar dashboard por defecto
+            if (!linkEncontrado) {
+                const dashLink = document.querySelector('.sidebar nav a[href="dashboard.html"]');
+                if (dashLink) dashLink.classList.add('active');
             }
 
-            // Evento para el botón "+"
+            // Evento para el botón "+" en el menú
             const btnMenu = document.getElementById('btn-nuevo-producto');
             if (btnMenu) {
                 btnMenu.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    if (typeof window.abrirModal === 'function') {
-                        window.abrirModal();
+                    // Navegar a productos y abrir modal
+                    if (window.location.pathname.includes('productos.html')) {
+                        if (typeof window.abrirModal === 'function') {
+                            window.abrirModal();
+                        }
                     } else {
                         window.location.href = 'productos.html?action=nuevo';
                     }

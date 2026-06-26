@@ -1,60 +1,110 @@
-.sidebar{
-    width:220px;
-    height:100vh;
-    background:#0f172a;
-    color:white;
-    position:fixed;
-    left:0;
-    top:0;
+/* menu.css - sidebar fijo con layout correcto */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:20px;
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #0f172a;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+    flex-shrink: 0;
+    z-index: 100;
 }
 
-.logo img{
-    width:40px;
-    height:40px;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border-bottom: 1px solid #1e293b;
 }
 
-.logo h3{
-    margin:0;
-    font-size:18px;
+.logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
 }
 
-.logo small{
-    color:#94a3b8;
+.logo h3 {
+    margin: 0;
+    font-size: 18px;
+    color: white;
 }
 
-nav{
-    margin-top:20px;
+.logo small {
+    color: #94a3b8;
+    font-size: 12px;
 }
 
-nav a{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:12px 20px;
-    color:#cbd5e1;
-    text-decoration:none;
-    margin:4px 10px;
-    border-radius:8px;
-    transition:.3s;
+nav {
+    margin-top: 10px;
+    padding: 0 8px;
 }
 
-nav a:hover{
-    background:#1e293b;
+nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    color: #94a3b8;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+    font-size: 14px;
+    position: relative;
 }
 
-/* menu.css - Usando 'active' */
-.sidebar nav a.active {  /* ← Cambiado de 'activo' a 'active' */
+nav a:hover {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+nav a.active {
     background: #2563eb;
     color: white;
 }
 
-nav i{
-    width:18px;
+nav a.active i {
+    color: white;
+}
+
+nav i {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #64748b;
+}
+
+nav a:hover i {
+    color: #e2e8f0;
+}
+
+nav a.active i {
+    color: white;
+}
+
+/* Botón "+" en el menú */
+.btn-menu-nuevo {
+    background: #2563eb;
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    line-height: 24px;
+    transition: background 0.2s;
+    margin-left: auto;
+}
+
+.btn-menu-nuevo:hover {
+    background: #1d4ed8;
 }

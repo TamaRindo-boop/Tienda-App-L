@@ -4,30 +4,11 @@ const buscador = document.getElementById('buscador');
 
 let todosLosProductos = [];
 
-// ── Cargar menú ──────────────────────────────────────────────
-fetch('menu.html')
-    .then(r => r.text())
-    .then(html => {
-        document.getElementById('menu-container').innerHTML = html;
-
-        const links = document.querySelectorAll('.sidebar nav a');
-        links.forEach(a => a.classList.remove('active'));
-        const linkProductos = [...links].find(a => a.href.includes('productos.html'));
-        if (linkProductos) linkProductos.classList.add('active');
-
-        const btnMenu = document.getElementById('btn-nuevo-producto');
-        if (btnMenu) btnMenu.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            abrirModal();
-        });
-    });
-
 // ── Cargar tabla ─────────────────────────────────────────────
 async function cargarProductos() {
     const res = await window.electronAPI.obtenerProductos();
     if (!res.ok) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:red;">Error: ${res.error}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:red;">Error: ${res.error}</td></tr>`;
         return;
     }
     todosLosProductos = res.data;
@@ -35,59 +16,36 @@ async function cargarProductos() {
 }
 
 function renderTabla(lista) {
-    if (lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:30px;color:#94a3b8;">Sin productos registrados.</td></tr>`;
+    if (!lista.length) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:30px;color:#94a3b8;">Sin productos registrados.</td></tr>`;
         return;
     }
-    tbody.innerHTML = lista.map(p => `
+    tbody.innerHTML = lista.map(p => {
+        const stockStyle = p.cantidad <= 5 ? 'color:#dc2626;font-weight:700;' : '';
+        return `
         <tr>
             <td>${p.id}</td>
             <td>${p.nombre}</td>
             <td>$${p.precio_compra.toFixed(2)}</td>
             <td>$${p.precio_venta.toFixed(2)}</td>
-            <td>
-                <div style="display:flex;align-items:center;gap:6px;">
-                    <button onclick="cambiarCantidad(${p.id}, ${p.cantidad}, -1)"
-                        style="width:26px;height:26px;cursor:pointer;border:1px solid #ccc;border-radius:4px;background:white;font-size:14px;">-</button>
-                    <span id="cant-${p.id}" style="min-width:24px;text-align:center;">${p.cantidad}</span>
-                    <button onclick="cambiarCantidad(${p.id}, ${p.cantidad}, 1)"
-                        style="width:26px;height:26px;cursor:pointer;border:1px solid #ccc;border-radius:4px;background:white;font-size:14px;">+</button>
-                </div>
-            </td>
-        </tr>
-    `).join('');
-}
-
-async function cambiarCantidad(id, cantidadActual, delta) {
-    const nueva = cantidadActual + delta;
-    if (nueva < 0) return;
-
-    const res = await window.electronAPI.actualizarCantidad({ id, cantidad: nueva });
-    if (res.ok) {
-        // Actualiza en memoria y en pantalla sin recargar todo
-        const prod = todosLosProductos.find(p => p.id === id);
-        if (prod) prod.cantidad = nueva;
-        const span = document.getElementById(`cant-${id}`);
-        if (span) span.textContent = nueva;
-        // Actualiza también los botones con la nueva cantidad
-        const btns = span.parentElement.querySelectorAll('button');
-        btns[0].setAttribute('onclick', `cambiarCantidad(${id}, ${nueva}, -1)`);
-        btns[1].setAttribute('onclick', `cambiarCantidad(${id}, ${nueva}, 1)`);
-    }
+            <td style="${stockStyle}">${p.cantidad}</td>
+        </tr>`;
+    }).join('');
 }
 
 // ── Buscador ─────────────────────────────────────────────────
 buscador.addEventListener('input', () => {
     const q = buscador.value.toLowerCase();
-    const filtrados = todosLosProductos.filter(p => p.nombre.toLowerCase().includes(q));
-    renderTabla(filtrados);
+    renderTabla(todosLosProductos.filter(p => p.nombre.toLowerCase().includes(q)));
 });
 
 // ── Modal ────────────────────────────────────────────────────
 function abrirModal() {
-    ['prod-nombre','prod-precio-compra','prod-precio-venta','prod-cantidad']
-        .forEach(id => document.getElementById(id).value = '');
-    document.getElementById('prod-msg').style.display = 'none';
+    document.getElementById('prod-nombre').value        = '';
+    document.getElementById('prod-precio-compra').value = '';
+    document.getElementById('prod-precio-venta').value  = '';
+    document.getElementById('prod-cantidad').value      = '0';
+    document.getElementById('prod-msg').style.display   = 'none';
     modal.style.display = 'flex';
 }
 
@@ -123,13 +81,13 @@ document.getElementById('btn-guardar').addEventListener('click', async () => {
     const res = await window.electronAPI.guardarProducto({ nombre, precioCompra, precioVenta, cantidad });
 
     if (res.ok) {
-        msg.textContent   = `Guardado (ID: ${res.id})`;
+        msg.textContent   = `✅ Guardado correctamente`;
         msg.style.color   = 'green';
         msg.style.display = 'block';
         setTimeout(() => {
             modal.style.display = 'none';
             cargarProductos();
-        }, 900);
+        }, 800);
     } else {
         msg.textContent   = 'Error: ' + res.error;
         msg.style.color   = 'red';
@@ -137,5 +95,13 @@ document.getElementById('btn-guardar').addEventListener('click', async () => {
     }
 });
 
+// Exponer para que menu.js lo llame con el "+"
+window.abrirModal = abrirModal;
+
 // ── Init ─────────────────────────────────────────────────────
 cargarProductos();
+
+// Abrir modal si viene desde el menú con ?action=nuevo
+if (new URLSearchParams(window.location.search).get('action') === 'nuevo') {
+    window.addEventListener('load', abrirModal);
+}

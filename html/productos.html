@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>Productos - Tiendita</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -11,73 +11,74 @@
 </head>
 <body>
 
-    <!-- MENÚ -->
-    <div id="menu-container"></div>
+    <div class="app-layout">
+        <div id="menu-container"></div>
 
-    <!-- MODAL NUEVO PRODUCTO -->
-    <div id="modal-producto" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
-        <div style="background:white;padding:20px;border-radius:8px;width:360px;max-height:90vh;overflow-y:auto;">
-            <h2 style="margin-bottom:12px;">Nuevo Producto</h2>
+        <div class="main-content">
+            <!-- MODAL NUEVO PRODUCTO -->
+            <div id="modal-producto" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
+                <div style="background:white;padding:25px;border-radius:12px;width:380px;max-height:90vh;overflow-y:auto;">
+                    <h2 style="margin-bottom:16px;">Nuevo Producto</h2>
 
-            <label>Nombre</label><br>
-            <input id="prod-nombre" type="text" maxlength="200" style="width:100%;margin-bottom:8px;padding:6px;"><br>
+                    <label>Nombre</label><br>
+                    <input id="prod-nombre" type="text" maxlength="200" style="width:100%;margin-bottom:10px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
 
-            <label>Precio de compra</label><br>
-            <input id="prod-precio-compra" type="number" step="0.01" min="0" style="width:100%;margin-bottom:8px;padding:6px;"><br>
+                    <label>Precio de compra</label><br>
+                    <input id="prod-precio-compra" type="number" step="0.01" min="0" style="width:100%;margin-bottom:10px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
 
-            <label>Precio de venta</label><br>
-            <input id="prod-precio-venta" type="number" step="0.01" min="0" style="width:100%;margin-bottom:8px;padding:6px;"><br>
+                    <label>Precio de venta</label><br>
+                    <input id="prod-precio-venta" type="number" step="0.01" min="0" style="width:100%;margin-bottom:10px;padding:8px;border:1px solid #ddd;border-radius:6px;"><br>
 
-            <label>Cantidad</label><br>
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-                <button type="button" id="btn-menos" style="width:32px;height:32px;font-size:18px;cursor:pointer;border:1px solid #ccc;border-radius:4px;background:white;">-</button>
-                <input id="prod-cantidad" type="number" min="0" style="width:100%;padding:6px;text-align:center;">
-                <button type="button" id="btn-mas" style="width:32px;height:32px;font-size:18px;cursor:pointer;border:1px solid #ccc;border-radius:4px;background:white;">+</button>
+                    <label>Cantidad inicial</label><br>
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+                        <button type="button" id="btn-menos" style="width:32px;height:32px;font-size:18px;cursor:pointer;border:1px solid #ccc;border-radius:4px;background:white;">-</button>
+                        <input id="prod-cantidad" type="number" min="0" value="0" style="flex:1;padding:8px;text-align:center;border:1px solid #ddd;border-radius:6px;">
+                        <button type="button" id="btn-mas" style="width:32px;height:32px;font-size:18px;cursor:pointer;border:1px solid #ccc;border-radius:4px;background:white;">+</button>
+                    </div>
+
+                    <div style="display:flex;gap:10px;justify-content:flex-end;">
+                        <button id="btn-cancelar" style="padding:8px 16px;cursor:pointer;border:1px solid #ccc;border-radius:6px;background:white;">Cancelar</button>
+                        <button id="btn-guardar" style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;">Guardar</button>
+                    </div>
+
+                    <p id="prod-msg" style="margin-top:10px;display:none;font-size:13px;"></p>
+                </div>
             </div>
 
-            <div style="display:flex;gap:10px;justify-content:flex-end;">
-                <button id="btn-cancelar" style="padding:7px 14px;cursor:pointer;">Cancelar</button>
-                <button id="btn-guardar" style="padding:7px 14px;background:#2563eb;color:white;border:none;border-radius:4px;cursor:pointer;">Guardar</button>
-            </div>
+            <header class="topbar">
+                <input type="text" id="buscador" placeholder="Buscar producto...">
+                <div class="user">Administrador</div>
+            </header>
 
-            <p id="prod-msg" style="margin-top:8px;display:none;"></p>
+            <main class="contenido">
+                <div class="productos-header">
+                    <h1>Productos</h1>
+                    <button id="btn-nuevo-top" class="btn-primary">
+                        <i class="fas fa-plus"></i> Nuevo Producto
+                    </button>
+                </div>
+
+                <table class="tabla-productos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio Compra</th>
+                            <th>Precio Venta</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-body">
+                        <tr>
+                            <td colspan="5" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
         </div>
     </div>
 
-    <!-- BARRA SUPERIOR -->
-    <header class="topbar">
-        <input type="text" id="buscador" placeholder="Buscar producto...">
-        <div class="user">Administrador</div>
-    </header>
-
-    <!-- CONTENIDO -->
-    <main class="contenido">
-        <div class="productos-header">
-            <h1>Productos</h1>
-            <button id="btn-nuevo-top" class="btn-primary">
-                <i class="fas fa-plus"></i> Nuevo Producto
-            </button>
-        </div>
-
-        <table class="tabla-productos">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Precio Compra</th>
-                    <th>Precio Venta</th>
-                    <th>Cantidad</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-body">
-                <tr>
-                    <td colspan="5" style="text-align:center;padding:30px;color:#94a3b8;">Cargando...</td>
-                </tr>
-            </tbody>
-        </table>
-    </main>
-
+    <script src="../javascript/menu.js"></script>
     <script src="../javascript/productos.js"></script>
-
 </body>
 </html>

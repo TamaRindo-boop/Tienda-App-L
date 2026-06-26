@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario</title>
+    <title>Inventario - Tiendita</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -11,17 +11,19 @@
 </head>
 <body>
 
-    <div style="display: flex; min-height: 100vh; width: 100%;">
-
+    <div class="app-layout">
+        <!-- Menú -->
         <div id="menu-container"></div>
 
-        <div style="flex: 1; display: flex; flex-direction: column;">
-            
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <!-- Barra superior -->
             <header class="topbar">
                 <input type="text" id="buscarMovimiento" placeholder="Buscar movimientos...">
                 <div class="user">Administrador</div>
             </header>
 
+            <!-- Contenido -->
             <main class="contenido">
                 <div class="inventario-header">
                     <div>
@@ -64,7 +66,7 @@
         </div>
     </div>
 
-    <!-- MODAL CORREGIDO -->
+    <!-- MODAL -->
     <div id="modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:9999;justify-content:center;align-items:center;">
         <div style="background:white;padding:25px;border-radius:16px;width:400px;max-width:90%;">
             <h2 id="modalTitulo" style="margin-bottom:15px;">Nuevo Movimiento</h2>
