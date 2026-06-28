@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores - Tiendita</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/proveedores.css">
+</head>
+<body>
+
+    <div class="app-layout">
+        <div id="menu-container"></div>
+
+        <div class="main-content">
+
+            <header class="topbar">
+                <input type="text" id="buscarProveedor" placeholder="Buscar proveedores...">
+                <div class="user">Administrador</div>
+            </header>
+
+            <main class="contenido">
+                <div class="proveedores-header">
+                    <div>
+                        <h1>🏢 Proveedores</h1>
+                        <p>Gestiona los proveedores y sus datos de contacto</p>
+                    </div>
+                    <button class="btn-nuevo" onclick="abrirModalProveedor()">
+                        <i class="fas fa-plus"></i> Nuevo Proveedor
+                    </button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fas fa-building"></i></div>
+                        <div>
+                            <p class="stat-label">Total Proveedores</p>
+                            <p class="stat-value" id="total-proveedores">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <p class="stat-label">Activos</p>
+                            <p class="stat-value" id="proveedores-activos">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon red"><i class="fas fa-times-circle"></i></div>
+                        <div>
+                            <p class="stat-label">Inactivos</p>
+                            <p class="stat-value" id="proveedores-inactivos">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple"><i class="fas fa-dollar-sign"></i></div>
+                        <div>
+                            <p class="stat-label">Total Gastado</p>
+                            <p class="stat-value" id="total-gastado-proveedores">$0.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filtros-proveedores">
+                    <button onclick="filtrarProveedores('Todos', this)" class="filtro-btn active">
+                        <i class="fas fa-list"></i> Todos
+                    </button>
+                    <button onclick="filtrarProveedores('Activo', this)" class="filtro-btn">
+                        <i class="fas fa-check-circle"></i> Activos
+                    </button>
+                    <button onclick="filtrarProveedores('Inactivo', this)" class="filtro-btn">
+                        <i class="fas fa-times-circle"></i> Inactivos
+                    </button>
+                </div>
+
+                <div class="tabla-container">
+                    <table class="tabla-proveedores">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Proveedor</th>
+                                <th>Contacto</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Dirección</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProveedores">
+                            <tr>
+                                <td colspan="8" class="empty-state">
+                                    <i class="fas fa-building"></i>
+                                    <p>No hay proveedores registrados</p>
+                                    <span>Haz clic en "Nuevo Proveedor" para comenzar</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal Nuevo/Editar Proveedor -->
+    <div id="modal-proveedor" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitulo"><i class="fas fa-plus-circle"></i> Nuevo Proveedor</h2>
+                <button onclick="cerrarModalProveedor()" class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label><i class="fas fa-building"></i> Nombre del Proveedor</label>
+                    <input type="text" id="nombre-proveedor" placeholder="Ej: Distribuidora XYZ">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Persona de Contacto</label>
+                    <input type="text" id="contacto-proveedor" placeholder="Ej: Juan Pérez">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Teléfono</label>
+                        <input type="text" id="telefono-proveedor" placeholder="Ej: 555-1234">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="email-proveedor" placeholder="Ej: contacto@proveedor.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Dirección</label>
+                    <input type="text" id="direccion-proveedor" placeholder="Ej: Calle Principal #123">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-sticky-note"></i> Notas (opcional)</label>
+                    <textarea id="notas-proveedor" placeholder="Notas adicionales..." rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="cerrarModalProveedor()" class="btn-secondary">Cancelar</button>
+                <button onclick="guardarProveedor()" class="btn-primary">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalles Proveedor -->
+    <div id="modal-detalles-proveedor" class="modal-overlay">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2><i class="fas fa-info-circle"></i> Detalles del Proveedor</h2>
+                <button onclick="cerrarModalDetallesProveedor()" class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="detalles-contenido-proveedor">
+                <!-- Contenido generado por JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button onclick="cerrarModalDetallesProveedor()" class="btn-secondary">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../javascript/menu.js"></script>
+    <script src="../javascript/proveedores.js"></script>
+</body>
+</html>
